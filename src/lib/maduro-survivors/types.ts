@@ -26,7 +26,7 @@ export interface Upgrade {
   apply(game: Game): void;
 }
 
-import maduroImgModule from "../../../public/maduro/assets/maduro-survivors/maduro.png";
+import maduroImgModule from "./assets/maduro-survivors/maduro.png";
 
 export class Player implements GameObject {
   position: Vector2;
@@ -112,7 +112,7 @@ export class Player implements GameObject {
   }
 }
 
-import marineImgModule from "../../../public/maduro/assets/maduro-survivors/marine.png";
+import marineImgModule from "./assets/maduro-survivors/marine.png";
 
 export class Enemy implements GameObject {
   position: Vector2;
