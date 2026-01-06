@@ -1,5 +1,5 @@
 import { Enemy } from "./types";
-import trumpImg from "./assets/trump.png";
+const trumpImg = "/assets/maduro-survivors/trump.png";
 
 export class Trump extends Enemy {
   static trumpSprite: HTMLImageElement | null = null;

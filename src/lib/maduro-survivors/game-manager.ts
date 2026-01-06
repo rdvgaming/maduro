@@ -1,9 +1,9 @@
 import { Game, Particle } from "./types";
 import { AutoGun, BombLauncher, MineLayer } from "./weapons";
 import { getRandomUpgrades } from "./upgrades";
-import { createEnemy } from "./enemyTypes";
+import { createEnemy } from "./enemy-types";
 
-class GameManager {
+export class GameManager {
   game: Game;
   spawnTimer: number = 0;
   spawnInterval: number = 0.5;
@@ -604,5 +604,3 @@ class GameManager {
     ctx.strokeRect(10, this.game.canvas.height - 30, 200, 20);
   }
 }
-
-new GameManager();

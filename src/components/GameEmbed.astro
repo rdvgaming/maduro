@@ -35,7 +35,10 @@
   </div>
 </div>
 
-<script is:inline type="module" src="/game/bundle.js"></script>
+<script>
+  import { GameManager } from "../lib/maduro-survivors/game-manager";
+  new GameManager();
+</script>
 
 <style>
   #game-container {

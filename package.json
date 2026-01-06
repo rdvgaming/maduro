@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run build:game && astro build",
-    "build:game": "esbuild src/games/maduro-survivor/main.ts --bundle --outfile=public/game/bundle.js --format=esm --loader:.png=dataurl",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -16,7 +15,6 @@
     "sharp": "^0.34.2"
   },
   "devDependencies": {
-    "esbuild": "^0.27.2",
     "typescript": "^5.7.3"
   }
 }
