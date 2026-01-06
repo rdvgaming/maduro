@@ -31,7 +31,7 @@ import maduroImgModule from "./assets/maduro-survivors/maduro.png";
 export class Player implements GameObject {
   position: Vector2;
   velocity: Vector2;
-  radius: number = 25;
+  radius: number = 35;
   speed: number = 200;
   health: number = 100;
   maxHealth: number = 100;
