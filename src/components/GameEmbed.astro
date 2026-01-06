@@ -46,12 +46,21 @@
     display: none;
   }
 
+  /* Remove body margins when game is present */
+  :global(body:has(#game-container)) {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
   #game-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
+    margin: 0;
+    padding: 0;
     background: #000;
     display: flex;
     justify-content: center;
