@@ -2,29 +2,251 @@
 // GameEmbed component - embeds the Maduro Survivors game
 ---
 
-<div class="game-container">
+<div id="game-container">
   <canvas id="gameCanvas"></canvas>
+
+  <div id="ui">
+    <div>Time: <span id="timer">0:00</span></div>
+    <div>Level: <span id="level">1</span></div>
+    <div>Kills: <span id="kills">0</span></div>
+    <div class="exp-bar">
+      <div class="exp-fill" id="exp-bar" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <div id="level-up">
+    <h2>LEVEL UP!</h2>
+    <div id="upgrade-options"></div>
+  </div>
+
+  <div id="game-over">
+    <h1>CAPTURED!</h1>
+    <p>You survived: <span id="final-time">0:00</span></p>
+    <p>Marines defeated: <span id="final-kills">0</span></p>
+    <p style="margin-top: 20px; font-size: 18px" class="restart-text">
+      Press R or tap here to restart
+    </p>
+  </div>
+
+  <div id="touch-controls">
+    <div id="joystick-base">
+      <div id="joystick-stick"></div>
+    </div>
+  </div>
 </div>
 
 <script is:inline type="module" src="/game/bundle.js"></script>
 
 <style>
-  .game-container {
-    width: 100%;
-    max-width: 1200px;
+  #game-container {
+    position: relative;
+    max-width: 100vw;
+    max-height: 100vh;
     margin: 2rem auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    border-radius: 8px;
-    overflow: hidden;
   }
 
   #gameCanvas {
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
     display: block;
-    width: 100%;
     max-width: 100%;
-    height: auto;
+    max-height: 100vh;
+  }
+
+  #ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-shadow: 2px 2px 4px #000;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  #ui div {
+    margin: 5px 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .exp-bar {
+    width: 200px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .exp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffd700, #ffed4e);
+    transition: width 0.3s ease;
+  }
+
+  #game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #ff0000;
+    padding: 40px;
+    border: 5px solid #ff0000;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    z-index: 20;
+  }
+
+  #game-over h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 6px #000;
+  }
+
+  #game-over p {
+    font-size: 24px;
+    color: #fff;
+    margin: 10px 0;
+  }
+
+  #level-up {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    padding: 30px;
+    border: 3px solid #ffd700;
+    border-radius: 10px;
+    display: none;
+    z-index: 20;
+  }
+
+  #level-up h2 {
+    color: #ffd700;
+    margin-bottom: 20px;
+    font-size: 32px;
+  }
+
+  .upgrade-option {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #ffd700;
+    padding: 15px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s;
+  }
+
+  .upgrade-option:hover {
+    background: rgba(255, 215, 0, 0.3);
+    transform: scale(1.05);
+  }
+
+  #touch-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 150px;
+    height: 150px;
+    display: none;
+    z-index: 15;
+  }
+
+  #joystick-base {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    touch-action: none;
+  }
+
+  #joystick-stick {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 0, 0, 0.6);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    touch-action: none;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    #ui {
+      font-size: 14px;
+    }
+
+    #ui div {
+      padding: 3px 6px;
+    }
+
+    .exp-bar {
+      width: 120px;
+      height: 16px;
+    }
+
+    #touch-controls {
+      display: block;
+    }
+
+    #game-over {
+      padding: 20px;
+      max-width: 90vw;
+    }
+
+    #game-over h1 {
+      font-size: 32px;
+    }
+
+    #game-over p {
+      font-size: 18px;
+    }
+
+    #level-up {
+      padding: 20px;
+      max-width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    #level-up h2 {
+      font-size: 24px;
+    }
+
+    .upgrade-option {
+      padding: 12px;
+      font-size: 14px;
+    }
+  }
+
+  @media (orientation: landscape) and (max-height: 600px) {
+    #touch-controls {
+      width: 120px;
+      height: 120px;
+      bottom: 10px;
+      left: 10px;
+    }
+
+    #joystick-base {
+      width: 120px;
+      height: 120px;
+    }
+
+    #joystick-stick {
+      width: 50px;
+      height: 50px;
+    }
   }
 </style>
