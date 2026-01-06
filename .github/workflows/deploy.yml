@@ -1,7 +1,10 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Manual trigger only
+  # Run on every push to master
+  push:
+    branches: [master]
+  # Also allow manual trigger
   workflow_dispatch:
 
 permissions:
