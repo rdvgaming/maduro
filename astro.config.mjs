@@ -2,10 +2,13 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
+// Use base path only in production (GitHub Pages)
+const base = process.env.NODE_ENV === "production" ? "/maduro" : "/";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://rdvgaming.github.io",
-  base: "/maduro",
+  base: base,
   integrations: [
     starlight({
       title: "The Maduro Games",
