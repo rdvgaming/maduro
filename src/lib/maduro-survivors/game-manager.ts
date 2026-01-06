@@ -38,8 +38,8 @@ export class GameManager {
           canvas.height = Math.min(window.innerHeight - 20, 1000);
         }
       } else {
-        canvas.width = 1200;
-        canvas.height = 800;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
       }
 
       if (this.game.player) {
