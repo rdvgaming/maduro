@@ -9,6 +9,11 @@ const base = process.env.ASTRO_BASE_PATH || "/";
 export default defineConfig({
   site: "https://rdvgaming.github.io",
   base: base,
+  vite: {
+    define: {
+      "import.meta.env.ASTRO_BASE_PATH": JSON.stringify(base),
+    },
+  },
   integrations: [
     starlight({
       title: "The Maduro Games",
