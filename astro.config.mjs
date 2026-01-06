@@ -2,8 +2,8 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
-// Use base path only in production (GitHub Pages)
-const base = process.env.NODE_ENV === "production" ? "/maduro" : "/";
+// Use custom ASTRO_BASE_PATH environment variable, default to "/"
+const base = process.env.ASTRO_BASE_PATH || "/";
 
 // https://astro.build/config
 export default defineConfig({
