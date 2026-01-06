@@ -9,8 +9,11 @@
     <div>Time: <span id="timer">0:00</span></div>
     <div>Level: <span id="level">1</span></div>
     <div>Kills: <span id="kills">0</span></div>
-    <div class="exp-bar">
-      <div class="exp-fill" id="exp-bar" style="width: 0%"></div>
+    <div class="stat-bar">
+      <div class="stat-fill health-fill" id="health-bar" style="width: 100%"></div>
+    </div>
+    <div class="stat-bar">
+      <div class="stat-fill exp-fill" id="exp-bar" style="width: 0%"></div>
     </div>
   </div>
 
@@ -94,7 +97,7 @@
     border-radius: 5px;
   }
 
-  .exp-bar {
+  .stat-bar {
     width: 200px;
     height: 20px;
     background: rgba(0, 0, 0, 0.7);
@@ -104,12 +107,19 @@
     position: relative;
   }
 
-  .exp-fill {
+  .stat-fill {
     height: 100% !important;
-    background: linear-gradient(90deg, #ffd700, #ffed4e) !important;
     transition: width 0.3s ease !important;
     margin: 0 !important;
     padding: 0 !important;
+  }
+
+  .health-fill {
+    background: linear-gradient(90deg, #ff0000, #ff6666) !important;
+  }
+
+  .exp-fill {
+    background: linear-gradient(90deg, #ffd700, #ffed4e) !important;
   }
 
   #game-over {
@@ -221,7 +231,7 @@
       padding: 3px 6px;
     }
 
-    .exp-bar {
+    .stat-bar {
       width: 120px;
       height: 16px;
     }

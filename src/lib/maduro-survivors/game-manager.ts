@@ -574,6 +574,10 @@ export class GameManager {
       this.game.player.level.toString();
     document.getElementById("kills")!.textContent = this.game.kills.toString();
 
+    const healthPercent =
+      (this.game.player.health / this.game.player.maxHealth) * 100;
+    document.getElementById("health-bar")!.style.width = `${healthPercent}%`;
+
     const expPercent =
       (this.game.player.exp / this.game.player.expToLevel) * 100;
     document.getElementById("exp-bar")!.style.width = `${expPercent}%`;
@@ -604,15 +608,5 @@ export class GameManager {
     }
 
     this.game.player.draw(ctx);
-
-    ctx.fillStyle = "#ff0000";
-    ctx.fillRect(
-      10,
-      this.game.canvas.height - 30,
-      (this.game.player.health / this.game.player.maxHealth) * 200,
-      20,
-    );
-    ctx.strokeStyle = "#fff";
-    ctx.strokeRect(10, this.game.canvas.height - 30, 200, 20);
   }
 }
