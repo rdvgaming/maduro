@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
+    "dev:github": "ASTRO_BASE_PATH=/maduro astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
