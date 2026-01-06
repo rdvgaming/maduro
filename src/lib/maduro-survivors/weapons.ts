@@ -1,4 +1,5 @@
-import { Weapon, Player, Enemy } from "./types";
+import type { Weapon } from "./types";
+import { Player, Enemy } from "./types";
 
 export class Projectile {
   x: number;
