@@ -1,35 +1,49 @@
-# Maduro Survivors 💥
+# Starlight Starter Kit: Basics
 
-A Vampire Survivors-style game where you play as Maduro fighting off hordes of marines!
+[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-## Features
-
-- **Intense horde survival gameplay** - Fight endless waves of marines
-- **Multiple weapons** - Auto Gun, Bomb Launcher, and Mine Layer
-- **TONS OF EXPLOSIONS** - Particles and visual effects everywhere
-- **Level-up system** - Gain experience and choose powerful upgrades
-- **Timer-based challenge** - Survive as long as you can before getting caught
-- **Progressive difficulty** - Enemies get faster and stronger over time
-
-## Controls
-
-- **WASD** or **Arrow Keys** - Move Maduro
-- **R** - Restart after game over
-
-## Setup
-
-Install dependencies:
-```bash
-bun install
+```
+npm create astro@latest -- --template starlight
 ```
 
-Build the game:
-```bash
-bun run build
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+
+## 🚀 Project Structure
+
+Inside of your Astro + Starlight project, you'll see the following folders and files:
+
+```
+.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── content/
+│   │   └── docs/
+│   └── content.config.ts
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
 ```
 
-## Play
+Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
 
-Simply open `index.html` in your browser after building!
+Images can be added to `src/assets/` and embedded in Markdown with a relative link.
 
-The game will automatically shoot at the nearest enemies. Your goal is to survive as long as possible while defeating marines and leveling up to unlock more powerful weapons and abilities.
+Static assets, like favicons, can be placed in the `public/` directory.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).

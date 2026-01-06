@@ -1,0 +1,30 @@
+---
+// GameEmbed component - embeds the Maduro Survivors game
+---
+
+<div class="game-container">
+  <canvas id="gameCanvas"></canvas>
+</div>
+
+<script is:inline src="/game/bundle.js"></script>
+
+<style>
+  .game-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  #gameCanvas {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+</style>
