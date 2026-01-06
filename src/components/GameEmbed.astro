@@ -41,6 +41,11 @@
 </script>
 
 <style>
+  /* Hide Starlight header when game is present */
+  :global(body:has(#game-container)) :global(header.header) {
+    display: none;
+  }
+
   #game-container {
     position: fixed;
     top: 0;
