@@ -212,7 +212,19 @@ export class GameManager {
 
   restart(): void {
     const canvas = this.game.canvas;
+    const currentWidth = canvas.width;
+    const currentHeight = canvas.height;
+
     this.game = new Game(canvas);
+
+    // Restore canvas dimensions
+    canvas.width = currentWidth;
+    canvas.height = currentHeight;
+
+    // Re-center player
+    this.game.player.position.x = canvas.width / 2;
+    this.game.player.position.y = canvas.height / 2;
+
     this.game.weapons.push(new AutoGun());
     this.spawnTimer = 0;
 
