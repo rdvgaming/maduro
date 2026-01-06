@@ -2,6 +2,7 @@ import { Game, Particle } from "./types";
 import { AutoGun, BombLauncher, MineLayer } from "./weapons";
 import { getRandomUpgrades } from "./upgrades";
 import { createEnemy } from "./enemy-types";
+import type { Game as GameType } from "./types";
 
 export class GameManager {
   game: Game;
@@ -592,7 +593,11 @@ export class GameManager {
   draw(): void {
     const ctx = this.game.ctx;
 
-    ctx.fillStyle = "#2d5016";
+    if (Game.backgroundPattern) {
+      ctx.fillStyle = Game.backgroundPattern;
+    } else {
+      ctx.fillStyle = "#2d5016";
+    }
     ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
     for (const particle of this.game.particles) {

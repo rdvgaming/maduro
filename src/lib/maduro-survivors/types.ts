@@ -27,6 +27,7 @@ export interface Upgrade {
 }
 
 import maduroImgModule from "./assets/maduro-survivors/maduro.png";
+import backgroundImgModule from "./assets/maduro-survivors/background.png";
 
 export class Player implements GameObject {
   position: Vector2;
@@ -289,6 +290,8 @@ export class Game {
   isPaused: boolean = false;
   isGameOver: boolean = false;
 
+  static backgroundPattern: CanvasPattern | null = null;
+
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d")!;
@@ -297,5 +300,13 @@ export class Game {
     canvas.height = 800;
 
     this.player = new Player(canvas.width / 2, canvas.height / 2);
+
+    if (!Game.backgroundPattern) {
+      const bgImg = new Image();
+      bgImg.src = backgroundImgModule.src;
+      bgImg.onload = () => {
+        Game.backgroundPattern = this.ctx.createPattern(bgImg, "repeat");
+      };
+    }
   }
 }
