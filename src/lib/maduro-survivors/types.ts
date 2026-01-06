@@ -117,12 +117,20 @@ import marineDuckImgModule from "./assets/maduro-survivors/marine-duck.png";
 import marinePistolImgModule from "./assets/maduro-survivors/marine-pistol.png";
 import marineRifleImgModule from "./assets/maduro-survivors/marine-rifle.png";
 import marineRocketImgModule from "./assets/maduro-survivors/marine-rocket.png";
+import vehicleHelicopterImgModule from "./assets/maduro-survivors/vehicle-helicopter.png";
+import vehicleTankImgModule from "./assets/maduro-survivors/vehicle-tank.png";
+import vehicleMarineImgModule from "./assets/maduro-survivors/vehicle-marine.png";
+import jdVanceImgModule from "./assets/maduro-survivors/jd-vance.png";
 
 const marineSprites = [
   marineDuckImgModule.src,
   marinePistolImgModule.src,
   marineRifleImgModule.src,
   marineRocketImgModule.src,
+  vehicleHelicopterImgModule.src,
+  vehicleTankImgModule.src,
+  vehicleMarineImgModule.src,
+  jdVanceImgModule.src,
 ];
 
 export class Enemy implements GameObject {
