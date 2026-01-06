@@ -1,6 +1,5 @@
 import { Enemy } from "./types";
-import trumpImgSrc from "/public/maduro/assets/maduro-survivors/trump.png";
-const trumpImg = trumpImgSrc.src || trumpImgSrc;
+import trumpImg from "/public/maduro/assets/maduro-survivors/trump.png?url";
 
 export class Trump extends Enemy {
   static trumpSprite: HTMLImageElement | null = null;
