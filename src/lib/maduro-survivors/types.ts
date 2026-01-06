@@ -112,7 +112,10 @@ export class Player implements GameObject {
   }
 }
 
-import marineImgModule from "./assets/maduro-survivors/marine.png";
+import marine1ImgModule from "./assets/maduro-survivors/marine-1.jpg";
+import marine2ImgModule from "./assets/maduro-survivors/marine-2.jpg";
+
+const marineSprites = [marine1ImgModule.src, marine2ImgModule.src];
 
 export class Enemy implements GameObject {
   position: Vector2;
@@ -123,17 +126,17 @@ export class Enemy implements GameObject {
   maxHealth: number = 20;
   damage: number = 10;
   dead: boolean = false;
-  static sprite: HTMLImageElement | null = null;
+  sprite: HTMLImageElement | null = null;
   facingLeft: boolean = false;
 
   constructor(x: number, y: number) {
     this.position = { x, y };
     this.velocity = { x: 0, y: 0 };
 
-    if (!Enemy.sprite) {
-      Enemy.sprite = new Image();
-      Enemy.sprite.src = marineImgModule.src;
-    }
+    const randomSprite =
+      marineSprites[Math.floor(Math.random() * marineSprites.length)];
+    this.sprite = new Image();
+    this.sprite.src = randomSprite;
   }
 
   update(deltaTime: number): void {
@@ -148,7 +151,7 @@ export class Enemy implements GameObject {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    if (Enemy.sprite && Enemy.sprite.complete) {
+    if (this.sprite && this.sprite.complete) {
       ctx.save();
 
       ctx.translate(this.position.x, this.position.y);
@@ -161,7 +164,7 @@ export class Enemy implements GameObject {
 
       ctx.imageSmoothingEnabled = true;
 
-      ctx.drawImage(Enemy.sprite, -size / 2, -size / 2, size, size);
+      ctx.drawImage(this.sprite, -size / 2, -size / 2, size, size);
 
       ctx.restore();
 
