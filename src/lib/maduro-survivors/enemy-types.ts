@@ -1,6 +1,5 @@
 import { Enemy } from "./types";
-import { withBase } from "../url";
-const trumpImg = withBase("/assets/maduro-survivors/trump.png");
+import trumpImg from "/public/maduro/assets/maduro-survivors/trump.png";
 
 export class Trump extends Enemy {
   static trumpSprite: HTMLImageElement | null = null;
