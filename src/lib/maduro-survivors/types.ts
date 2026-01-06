@@ -26,7 +26,8 @@ export interface Upgrade {
   apply(game: Game): void;
 }
 
-const maduroImg = "/assets/maduro-survivors/maduro.png";
+import { withBase } from "../url";
+const maduroImg = withBase("/assets/maduro-survivors/maduro.png");
 
 export class Player implements GameObject {
   position: Vector2;
@@ -112,7 +113,7 @@ export class Player implements GameObject {
   }
 }
 
-const marineImg = "/assets/maduro-survivors/marine.png";
+const marineImg = withBase("/assets/maduro-survivors/marine.png");
 
 export class Enemy implements GameObject {
   position: Vector2;
