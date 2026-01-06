@@ -26,7 +26,7 @@ export interface Upgrade {
   apply(game: Game): void;
 }
 
-import maduroImgModule from "./assets/maduro-survivors/maduro.jpg";
+import maduroImgModule from "./assets/maduro-survivors/maduro.png";
 
 export class Player implements GameObject {
   position: Vector2;
@@ -112,9 +112,9 @@ export class Player implements GameObject {
   }
 }
 
-import marine1ImgModule from "./assets/maduro-survivors/marine-1.jpg";
-import marine2ImgModule from "./assets/maduro-survivors/marine-2.jpg";
-import marine3ImgModule from "./assets/maduro-survivors/marine-3.jpg";
+import marine1ImgModule from "./assets/maduro-survivors/marine-1.png";
+import marine2ImgModule from "./assets/maduro-survivors/marine-2.png";
+import marine3ImgModule from "./assets/maduro-survivors/marine-3.png";
 
 const marineSprites = [
   marine1ImgModule.src,
