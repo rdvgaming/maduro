@@ -112,14 +112,16 @@ export class Player implements GameObject {
   }
 }
 
-import marine1ImgModule from "./assets/maduro-survivors/marine-1.png";
-import marine2ImgModule from "./assets/maduro-survivors/marine-2.png";
-import marine3ImgModule from "./assets/maduro-survivors/marine-3.png";
+import marineDuckImgModule from "./assets/maduro-survivors/marine-duck.png";
+import marinePistolImgModule from "./assets/maduro-survivors/marine-pistol.png";
+import marineRifleImgModule from "./assets/maduro-survivors/marine-rifle.png";
+import marineRocketImgModule from "./assets/maduro-survivors/marine-rocket.png";
 
 const marineSprites = [
-  marine1ImgModule.src,
-  marine2ImgModule.src,
-  marine3ImgModule.src,
+  marineDuckImgModule.src,
+  marinePistolImgModule.src,
+  marineRifleImgModule.src,
+  marineRocketImgModule.src,
 ];
 
 export class Enemy implements GameObject {
