@@ -202,8 +202,10 @@ export class GameManager {
 
     if (this.game.keys.has("a") || this.game.keys.has("arrowleft")) {
       heli.velocity.x = -heli.horizontalSpeed;
+      heli.facingRight = false;
     } else if (this.game.keys.has("d") || this.game.keys.has("arrowright")) {
       heli.velocity.x = heli.horizontalSpeed;
+      heli.facingRight = true;
     } else {
       heli.velocity.x = 0;
     }
@@ -435,11 +437,20 @@ export class GameManager {
       ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
     }
 
-    // Draw bunker sprite centered on Maduro at original size
+    // Draw bunker sprite centered on Maduro at 60% size, moved up by 20%
     if (Game.bunkerImage && Game.bunkerImage.complete) {
-      const bunkerX = this.game.maduro.position.x - Game.bunkerImage.width / 2;
-      const bunkerY = this.game.maduro.position.y - Game.bunkerImage.height / 2;
-      ctx.drawImage(Game.bunkerImage, bunkerX, bunkerY);
+      const bunkerWidth = Game.bunkerImage.width * 0.6;
+      const bunkerHeight = Game.bunkerImage.height * 0.6;
+      const bunkerX = this.game.maduro.position.x - bunkerWidth / 2;
+      const bunkerY =
+        this.game.maduro.position.y - bunkerHeight / 2 - bunkerHeight * 0.2;
+      ctx.drawImage(
+        Game.bunkerImage,
+        bunkerX,
+        bunkerY,
+        bunkerWidth,
+        bunkerHeight,
+      );
     }
 
     this.game.maduro.draw(ctx);

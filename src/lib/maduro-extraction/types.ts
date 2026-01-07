@@ -26,6 +26,7 @@ export class Helicopter implements GameObject {
   hitPoints: number = 2;
   isLanded: boolean = false;
   isCrashed: boolean = false;
+  facingRight: boolean = true;
 
   constructor(x: number, y: number) {
     this.position = { x, y };
@@ -61,6 +62,11 @@ export class Helicopter implements GameObject {
     if (Helicopter.sprite && Helicopter.sprite.complete) {
       ctx.save();
       ctx.translate(this.position.x, this.position.y);
+
+      // Flip sprite horizontally if facing left
+      if (!this.facingRight) {
+        ctx.scale(-1, 1);
+      }
 
       ctx.drawImage(
         Helicopter.sprite,
