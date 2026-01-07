@@ -140,11 +140,15 @@ export class Barrel {
 import marineBoatGunsImgModule from "../assets/marine-boat-guns.png";
 import marineBoatRocketImgModule from "../assets/marine-boat-rocket.png";
 import marineBoatGranadeObstacleImgModule from "../assets/marine-boat-granade.png";
+import jdVanceBoatImgModule from "../assets/jd-vance-boat.png";
+import trumpBoatImgModule from "../assets/trump-boat.png";
 
 const marineBoatSprites = [
   marineBoatGunsImgModule.src,
   marineBoatRocketImgModule.src,
   marineBoatGranadeObstacleImgModule.src,
+  jdVanceBoatImgModule.src,
+  trumpBoatImgModule.src,
 ];
 
 export class Obstacle implements GameObject {
