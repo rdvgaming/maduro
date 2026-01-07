@@ -10,7 +10,7 @@ export interface GameObject {
   draw(ctx: CanvasRenderingContext2D): void;
 }
 
-import jdVanceHelicopterImgModule from "../assets/jd-vance-helicopter.png";
+import jdVanceHelicopterImgModule from "../assets/jd-vince-trump-helicopter.png";
 
 export class Helicopter implements GameObject {
   position: Vector2;
