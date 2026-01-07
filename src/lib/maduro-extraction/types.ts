@@ -237,7 +237,7 @@ export class Particle {
   }
 }
 
-import backgroundCityImgModule from "../assets/background-city.png";
+import backgroundBunkerImgModule from "../assets/background-bunker.png";
 
 export class Game {
   canvas: HTMLCanvasElement;
@@ -266,7 +266,7 @@ export class Game {
     // Load background image
     if (!Game.backgroundImage) {
       Game.backgroundImage = new Image();
-      Game.backgroundImage.src = backgroundCityImgModule.src;
+      Game.backgroundImage.src = backgroundBunkerImgModule.src;
     }
   }
 }

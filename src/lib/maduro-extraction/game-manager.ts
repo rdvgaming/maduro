@@ -419,30 +419,19 @@ export class GameManager {
   draw(): void {
     const ctx = this.game.ctx;
 
-    // Draw background
+    // Draw background - fill entire canvas
     if (Game.backgroundImage && Game.backgroundImage.complete) {
-      const scale = Math.max(
-        this.game.canvas.width / Game.backgroundImage.width,
-        this.game.canvas.height / Game.backgroundImage.height,
-      );
-      const scaledWidth = Game.backgroundImage.width * scale;
-      const scaledHeight = Game.backgroundImage.height * scale;
-
       ctx.drawImage(
         Game.backgroundImage,
-        (this.game.canvas.width - scaledWidth) / 2,
-        (this.game.canvas.height - scaledHeight) / 2,
-        scaledWidth,
-        scaledHeight,
+        0,
+        0,
+        this.game.canvas.width,
+        this.game.canvas.height,
       );
     } else {
       ctx.fillStyle = "#87ceeb";
       ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
     }
-
-    // Draw ground indicator
-    ctx.fillStyle = "rgba(139, 69, 19, 0.5)";
-    ctx.fillRect(0, this.game.canvas.height - 100, this.game.canvas.width, 100);
 
     this.game.maduro.draw(ctx);
 
