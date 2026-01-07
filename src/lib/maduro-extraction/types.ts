@@ -237,7 +237,7 @@ export class Particle {
   }
 }
 
-import backgroundCityImgModule from "../assets/background-city.png";
+import backgroundWarImgModule from "../assets/background-war.png";
 import backgroundBunkerImgModule from "../assets/background-bunker.png";
 
 export class Game {
@@ -268,7 +268,7 @@ export class Game {
     // Load background image
     if (!Game.backgroundImage) {
       Game.backgroundImage = new Image();
-      Game.backgroundImage.src = backgroundCityImgModule.src;
+      Game.backgroundImage.src = backgroundWarImgModule.src;
     }
 
     // Load bunker sprite
