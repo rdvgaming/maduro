@@ -435,6 +435,13 @@ export class GameManager {
       ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
     }
 
+    // Draw bunker sprite centered on Maduro at original size
+    if (Game.bunkerImage && Game.bunkerImage.complete) {
+      const bunkerX = this.game.maduro.position.x - Game.bunkerImage.width / 2;
+      const bunkerY = this.game.maduro.position.y - Game.bunkerImage.height / 2;
+      ctx.drawImage(Game.bunkerImage, bunkerX, bunkerY);
+    }
+
     this.game.maduro.draw(ctx);
 
     for (const particle of this.game.particles) {

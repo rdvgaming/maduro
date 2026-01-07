@@ -237,6 +237,7 @@ export class Particle {
   }
 }
 
+import backgroundCityImgModule from "../assets/background-city.png";
 import backgroundBunkerImgModule from "../assets/background-bunker.png";
 
 export class Game {
@@ -255,6 +256,7 @@ export class Game {
   hasRescued: boolean = false;
 
   static backgroundImage: HTMLImageElement | null = null;
+  static bunkerImage: HTMLImageElement | null = null;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -266,7 +268,13 @@ export class Game {
     // Load background image
     if (!Game.backgroundImage) {
       Game.backgroundImage = new Image();
-      Game.backgroundImage.src = backgroundBunkerImgModule.src;
+      Game.backgroundImage.src = backgroundCityImgModule.src;
+    }
+
+    // Load bunker sprite
+    if (!Game.bunkerImage) {
+      Game.bunkerImage = new Image();
+      Game.bunkerImage.src = backgroundBunkerImgModule.src;
     }
   }
 }
