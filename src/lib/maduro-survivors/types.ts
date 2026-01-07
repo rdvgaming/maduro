@@ -31,8 +31,8 @@ export interface Upgrade {
   apply(game: Game): void;
 }
 
-import maduroImgModule from "./assets/maduro-survivors/maduro.png";
-import backgroundImgModule from "./assets/maduro-survivors/background.png";
+import maduroImgModule from "../assets/maduro.png";
+import backgroundImgModule from "../assets/background.png";
 
 export class Player implements GameObject {
   position: Vector2;
@@ -118,14 +118,14 @@ export class Player implements GameObject {
   }
 }
 
-import marineDuckImgModule from "./assets/maduro-survivors/marine-duck.png";
-import marinePistolImgModule from "./assets/maduro-survivors/marine-pistol.png";
-import marineRifleImgModule from "./assets/maduro-survivors/marine-rifle.png";
-import marineRocketImgModule from "./assets/maduro-survivors/marine-rocket.png";
-import vehicleHelicopterImgModule from "./assets/maduro-survivors/vehicle-helicopter.png";
-import vehicleTankImgModule from "./assets/maduro-survivors/vehicle-tank.png";
-import vehicleMarineImgModule from "./assets/maduro-survivors/vehicle-marine.png";
-import jdVanceImgModule from "./assets/maduro-survivors/jd-vance.png";
+import marineDuckImgModule from "../assets/marine-duck.png";
+import marinePistolImgModule from "../assets/marine-pistol.png";
+import marineRifleImgModule from "../assets/marine-rifle.png";
+import marineRocketImgModule from "../assets/marine-rocket.png";
+import vehicleHelicopterImgModule from "../assets/vehicle-helicopter.png";
+import vehicleTankImgModule from "../assets/vehicle-tank.png";
+import vehicleMarineImgModule from "../assets/vehicle-marine.png";
+import jdVanceImgModule from "../assets/jd-vance.png";
 
 const marineSprites = [
   marineDuckImgModule.src,
