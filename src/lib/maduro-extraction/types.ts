@@ -250,6 +250,48 @@ export class Particle {
 
 import backgroundWarImgModule from "../assets/background-war.png";
 import backgroundBunkerImgModule from "../assets/background-bunker.png";
+import samImgModule from "../assets/SAM.png";
+
+export class SAM {
+  position: Vector2;
+  width: number = 60;
+  height: number = 60;
+  static sprite: HTMLImageElement | null = null;
+
+  constructor(x: number, y: number) {
+    this.position = { x, y };
+
+    if (!SAM.sprite) {
+      SAM.sprite = new Image();
+      SAM.sprite.src = samImgModule.src;
+    }
+  }
+
+  draw(ctx: CanvasRenderingContext2D): void {
+    if (SAM.sprite && SAM.sprite.complete) {
+      ctx.save();
+      ctx.translate(this.position.x, this.position.y);
+
+      ctx.drawImage(
+        SAM.sprite,
+        -this.width / 2,
+        -this.height / 2,
+        this.width,
+        this.height,
+      );
+
+      ctx.restore();
+    } else {
+      ctx.fillStyle = "#666666";
+      ctx.fillRect(
+        this.position.x - this.width / 2,
+        this.position.y - this.height / 2,
+        this.width,
+        this.height,
+      );
+    }
+  }
+}
 
 export class Game {
   canvas: HTMLCanvasElement;
@@ -258,6 +300,7 @@ export class Game {
   maduro: Maduro;
   missiles: Missile[] = [];
   particles: Particle[] = [];
+  sams: SAM[] = [];
   keys: Set<string> = new Set();
 
   gameTime: number = 0;
@@ -275,6 +318,10 @@ export class Game {
 
     this.helicopter = new Helicopter(canvas.width / 2, 100);
     this.maduro = new Maduro(canvas.width / 2, canvas.height - 80);
+
+    // Position SAMs next to the bunker (left and right of Maduro)
+    this.sams.push(new SAM(canvas.width / 2 - 100, canvas.height - 80));
+    this.sams.push(new SAM(canvas.width / 2 + 100, canvas.height - 80));
 
     // Load background image
     if (!Game.backgroundImage) {

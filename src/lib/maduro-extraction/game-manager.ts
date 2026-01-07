@@ -5,6 +5,8 @@ export class GameManager {
   game: Game;
   missileSpawnTimer: number = 0;
   missileSpawnInterval: number = 2.0;
+  samMissileTimer: number = 0;
+  samMissileInterval: number = 3.0;
   joystickActive: boolean = false;
   touchId: number | null = null;
   thrustPressed: boolean = false;
@@ -47,6 +49,14 @@ export class GameManager {
       if (this.game.maduro) {
         this.game.maduro.position.x = canvas.width / 2;
         this.game.maduro.position.y = canvas.height - 80;
+      }
+
+      // Reposition SAMs next to bunker
+      if (this.game.sams.length > 0) {
+        this.game.sams[0].position.x = canvas.width / 2 - 100;
+        this.game.sams[0].position.y = canvas.height - 80;
+        this.game.sams[1].position.x = canvas.width / 2 + 100;
+        this.game.sams[1].position.y = canvas.height - 80;
       }
     };
 
@@ -188,6 +198,7 @@ export class GameManager {
 
     this.updateHelicopter(deltaTime);
     this.spawnMissiles(deltaTime);
+    this.spawnSAMMissiles(deltaTime);
     this.updateMissiles(deltaTime);
     this.handleCollisions();
     this.updateParticles(deltaTime);
@@ -276,6 +287,29 @@ export class GameManager {
       const vy = (dy / distance) * speed;
 
       const missile = new Missile(x, y, vx, vy);
+      this.game.missiles.push(missile);
+    }
+  }
+
+  spawnSAMMissiles(deltaTime: number): void {
+    this.samMissileTimer += deltaTime;
+
+    if (this.samMissileTimer >= this.samMissileInterval) {
+      this.samMissileTimer = 0;
+
+      // Fire missile from one random SAM
+      const sam =
+        this.game.sams[Math.floor(Math.random() * this.game.sams.length)];
+
+      // Calculate velocity to aim towards helicopter
+      const dx = this.game.helicopter.position.x - sam.position.x;
+      const dy = this.game.helicopter.position.y - sam.position.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const speed = 200; // SAM missiles are faster
+      const vx = (dx / distance) * speed;
+      const vy = (dy / distance) * speed;
+
+      const missile = new Missile(sam.position.x, sam.position.y, vx, vy);
       this.game.missiles.push(missile);
     }
   }
@@ -505,6 +539,11 @@ export class GameManager {
     }
 
     this.game.maduro.draw(ctx);
+
+    // Draw SAMs
+    for (const sam of this.game.sams) {
+      sam.draw(ctx);
+    }
 
     for (const particle of this.game.particles) {
       particle.draw(ctx);
