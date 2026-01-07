@@ -260,10 +260,10 @@ export class Game {
 
   // Enemy grid settings
   enemyDirection: number = 1; // 1 for right, -1 for left
-  enemySpeed: number = 30;
+  enemySpeed: number = 36;
   enemyDownAmount: number = 20;
   shouldMoveDown: boolean = false;
-  baseEnemySpeed: number = 30;
+  baseEnemySpeed: number = 36;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
