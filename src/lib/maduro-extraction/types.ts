@@ -254,8 +254,8 @@ import samImgModule from "../assets/SAM.png";
 
 export class SAM {
   position: Vector2;
-  width: number = 60;
-  height: number = 60;
+  width: number = 120;
+  height: number = 120;
   static sprite: HTMLImageElement | null = null;
 
   constructor(x: number, y: number) {

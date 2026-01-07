@@ -6,7 +6,7 @@ export class GameManager {
   missileSpawnTimer: number = 0;
   missileSpawnInterval: number = 2.0;
   samMissileTimer: number = 0;
-  samMissileInterval: number = 3.0;
+  samMissileInterval: number = 6.0;
   joystickActive: boolean = false;
   touchId: number | null = null;
   thrustPressed: boolean = false;
