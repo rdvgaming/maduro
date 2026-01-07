@@ -149,11 +149,15 @@ export class Missile implements GameObject {
   width: number = 20;
   height: number = 40;
   dead: boolean = false;
+  angle: number = 0; // Rotation angle in radians
   static sprite: HTMLImageElement | null = null;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, vx: number, vy: number) {
     this.position = { x, y };
-    this.velocity = { x: 0, y: -150 }; // Slow upward movement
+    this.velocity = { x: vx, y: vy };
+
+    // Calculate angle based on velocity direction
+    this.angle = Math.atan2(vy, vx) + Math.PI / 2;
 
     if (!Missile.sprite) {
       Missile.sprite = new Image();
@@ -170,6 +174,7 @@ export class Missile implements GameObject {
     if (Missile.sprite && Missile.sprite.complete) {
       ctx.save();
       ctx.translate(this.position.x, this.position.y);
+      ctx.rotate(this.angle);
 
       ctx.drawImage(
         Missile.sprite,

@@ -234,11 +234,34 @@ export class GameManager {
     if (this.missileSpawnTimer >= this.missileSpawnInterval) {
       this.missileSpawnTimer = 0;
 
-      // Spawn missile directly below helicopter
-      const missile = new Missile(
-        this.game.helicopter.position.x,
-        this.game.canvas.height,
-      );
+      // Spawn missile from left, right, or bottom
+      const spawnLocation = Math.random();
+      let x: number;
+      let y: number;
+
+      if (spawnLocation < 0.33) {
+        // From left
+        x = 0;
+        y = Math.random() * this.game.canvas.height;
+      } else if (spawnLocation < 0.66) {
+        // From right
+        x = this.game.canvas.width;
+        y = Math.random() * this.game.canvas.height;
+      } else {
+        // From bottom (ground)
+        x = Math.random() * this.game.canvas.width;
+        y = this.game.canvas.height;
+      }
+
+      // Calculate velocity to aim towards helicopter
+      const dx = this.game.helicopter.position.x - x;
+      const dy = this.game.helicopter.position.y - y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const speed = 150;
+      const vx = (dx / distance) * speed;
+      const vy = (dy / distance) * speed;
+
+      const missile = new Missile(x, y, vx, vy);
       this.game.missiles.push(missile);
     }
   }
@@ -248,8 +271,14 @@ export class GameManager {
       const missile = this.game.missiles[i];
       missile.update(deltaTime);
 
-      // Remove missiles that go off screen
-      if (missile.position.y < -missile.height || missile.dead) {
+      // Remove missiles that go off screen (any edge)
+      if (
+        missile.position.x < -missile.width ||
+        missile.position.x > this.game.canvas.width + missile.width ||
+        missile.position.y < -missile.height ||
+        missile.position.y > this.game.canvas.height + missile.height ||
+        missile.dead
+      ) {
         this.game.missiles.splice(i, 1);
       }
     }
@@ -282,6 +311,10 @@ export class GameManager {
         this.createExplosion(missile.position.x, missile.position.y, 20);
 
         if (this.game.helicopter.isCrashed) {
+          // Create large helicopter explosion
+          this.createExplosion(heli.position.x, heli.position.y, 80, "#ff6600");
+          this.createExplosion(heli.position.x, heli.position.y, 60, "#ff9900");
+          this.createExplosion(heli.position.x, heli.position.y, 40, "#ffcc00");
           this.gameOver();
           return;
         }
@@ -319,6 +352,10 @@ export class GameManager {
       if (Math.abs(heli.velocity.y) > heli.crashSpeed) {
         // Crashed due to high speed
         this.game.helicopter.isCrashed = true;
+        // Create large helicopter explosion
+        this.createExplosion(heli.position.x, heli.position.y, 80, "#ff6600");
+        this.createExplosion(heli.position.x, heli.position.y, 60, "#ff9900");
+        this.createExplosion(heli.position.x, heli.position.y, 40, "#ffcc00");
         this.gameOver();
         return;
       } else if (Math.abs(heli.velocity.y) < heli.maxFallSpeed) {
