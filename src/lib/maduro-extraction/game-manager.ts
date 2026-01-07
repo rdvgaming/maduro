@@ -58,7 +58,10 @@ export class GameManager {
     window.addEventListener("keydown", (e) => {
       this.game.keys.add(e.key.toLowerCase());
 
-      if (e.key.toLowerCase() === "r" && (this.game.isGameOver || this.game.isWon)) {
+      if (
+        e.key.toLowerCase() === "r" &&
+        (this.game.isGameOver || this.game.isWon)
+      ) {
         this.restart();
       }
 
@@ -85,7 +88,9 @@ export class GameManager {
   }
 
   setupTouchControls(): void {
-    const thrustButton = document.getElementById("thrust-button") as HTMLElement;
+    const thrustButton = document.getElementById(
+      "thrust-button",
+    ) as HTMLElement;
 
     if (thrustButton) {
       const handleThrustStart = (e: Event) => {
@@ -192,6 +197,17 @@ export class GameManager {
   }
 
   updateHelicopter(deltaTime: number): void {
+    // Handle horizontal movement
+    const heli = this.game.helicopter;
+
+    if (this.game.keys.has("a") || this.game.keys.has("arrowleft")) {
+      heli.velocity.x = -heli.horizontalSpeed;
+    } else if (this.game.keys.has("d") || this.game.keys.has("arrowright")) {
+      heli.velocity.x = heli.horizontalSpeed;
+    } else {
+      heli.velocity.x = 0;
+    }
+
     this.game.helicopter.update(deltaTime);
 
     // Keep helicopter on screen horizontally
@@ -281,9 +297,7 @@ export class GameManager {
     w2: number,
     h2: number,
   ): boolean {
-    return (
-      Math.abs(x1 - x2) < w1 + w2 && Math.abs(y1 - y2) < h1 + h2
-    );
+    return Math.abs(x1 - x2) < w1 + w2 && Math.abs(y1 - y2) < h1 + h2;
   }
 
   checkLandingConditions(): void {
@@ -319,7 +333,7 @@ export class GameManager {
     const heli = this.game.helicopter;
     const maduro = this.game.maduro;
 
-    const distance = heli.position.y - maduro.position.y;
+    const distance = Math.abs(heli.position.y - maduro.position.y);
     const halfScreen = this.game.canvas.height / 2;
 
     // Switch to desperate when helicopter is within half screen distance
@@ -379,7 +393,8 @@ export class GameManager {
     ).toString();
 
     const speed = Math.abs(this.game.helicopter.velocity.y);
-    document.getElementById("speed")!.textContent = Math.floor(speed).toString();
+    document.getElementById("speed")!.textContent =
+      Math.floor(speed).toString();
 
     // Color code speed indicator
     const speedElement = document.getElementById("speed")!;
@@ -391,7 +406,8 @@ export class GameManager {
       speedElement.style.color = "#00ff00"; // Green - safe
     }
 
-    document.getElementById("hits")!.textContent = `${this.game.helicopter.hitPoints}/2`;
+    document.getElementById("hits")!.textContent =
+      `${this.game.helicopter.hitPoints}/2`;
   }
 
   formatTime(seconds: number): string {
