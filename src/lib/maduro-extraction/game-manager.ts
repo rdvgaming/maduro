@@ -226,6 +226,20 @@ export class GameManager {
       this.game.helicopter.position.y = this.game.helicopter.height / 2;
       this.game.helicopter.velocity.y = 0;
     }
+
+    // Check if helicopter hits ground - explode
+    if (
+      this.game.helicopter.position.y >
+      this.game.canvas.height - this.game.helicopter.height / 2
+    ) {
+      this.game.helicopter.isCrashed = true;
+      // Create large helicopter explosion
+      this.createExplosion(heli.position.x, heli.position.y, 80, "#ff6600");
+      this.createExplosion(heli.position.x, heli.position.y, 60, "#ff9900");
+      this.createExplosion(heli.position.x, heli.position.y, 40, "#ffcc00");
+      this.gameOver();
+      return;
+    }
   }
 
   spawnMissiles(deltaTime: number): void {
