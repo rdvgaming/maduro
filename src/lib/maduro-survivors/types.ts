@@ -16,7 +16,12 @@ export interface Weapon {
   damage: number;
   cooldown: number;
   level: number;
-  update(deltaTime: number, player: Player, enemies: Enemy[]): void;
+  update(
+    deltaTime: number,
+    player: Player,
+    enemies: Enemy[],
+    canvas: HTMLCanvasElement,
+  ): void;
   draw(ctx: CanvasRenderingContext2D): void;
 }
 

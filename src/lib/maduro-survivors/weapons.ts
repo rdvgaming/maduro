@@ -42,7 +42,12 @@ export class AutoGun implements Weapon {
   currentCooldown = 0;
   projectiles: Projectile[] = [];
 
-  update(deltaTime: number, player: Player, enemies: Enemy[]): void {
+  update(
+    deltaTime: number,
+    player: Player,
+    enemies: Enemy[],
+    canvas: HTMLCanvasElement,
+  ): void {
     this.currentCooldown -= deltaTime;
 
     if (this.currentCooldown <= 0 && enemies.length > 0) {
@@ -60,9 +65,9 @@ export class AutoGun implements Weapon {
       if (
         proj.dead ||
         proj.x < 0 ||
-        proj.x > 1200 ||
+        proj.x > canvas.width ||
         proj.y < 0 ||
-        proj.y > 800
+        proj.y > canvas.height
       ) {
         this.projectiles.splice(i, 1);
       }
@@ -122,7 +127,12 @@ export class BombLauncher implements Weapon {
   currentCooldown = 0;
   bombs: Bomb[] = [];
 
-  update(deltaTime: number, player: Player, enemies: Enemy[]): void {
+  update(
+    deltaTime: number,
+    player: Player,
+    enemies: Enemy[],
+    canvas: HTMLCanvasElement,
+  ): void {
     this.currentCooldown -= deltaTime;
 
     if (this.currentCooldown <= 0 && enemies.length > 0) {
@@ -253,7 +263,12 @@ export class MineLayer implements Weapon {
   currentCooldown = 0;
   mines: Mine[] = [];
 
-  update(deltaTime: number, player: Player, _enemies: Enemy[]): void {
+  update(
+    deltaTime: number,
+    player: Player,
+    _enemies: Enemy[],
+    canvas: HTMLCanvasElement,
+  ): void {
     this.currentCooldown -= deltaTime;
 
     if (this.currentCooldown <= 0) {

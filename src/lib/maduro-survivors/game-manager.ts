@@ -380,7 +380,12 @@ export class GameManager {
 
   updateWeapons(deltaTime: number): void {
     for (const weapon of this.game.weapons) {
-      weapon.update(deltaTime, this.game.player, this.game.enemies);
+      weapon.update(
+        deltaTime,
+        this.game.player,
+        this.game.enemies,
+        this.game.canvas,
+      );
     }
   }
 
