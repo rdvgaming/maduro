@@ -1,5 +1,7 @@
 ---
 // GameEmbedExtraction component - embeds the Maduro Extraction game
+import maduroDesperationImg from "../lib/assets/maduro-desperation.png";
+import maduroDesperationSmokingImg from "../lib/assets/maduro-desperation-smoking.png";
 ---
 
 <div id="game-container">
@@ -13,20 +15,30 @@
   </div>
 
   <div id="game-won">
-    <h1>RESCUED!</h1>
-    <p>Maduro has been extracted!</p>
-    <p>Time: <span id="won-time">0:00</span></p>
-    <p style="margin-top: 20px; font-size: 18px" class="restart-text">
-      Press R or tap here to restart
-    </p>
+    <div class="modal-content">
+      <img src={maduroDesperationImg.src} alt="Maduro Desperate" id="won-sprite" />
+      <div class="modal-text">
+        <h1>RESCUED!</h1>
+        <p>Maduro has been extracted!</p>
+        <p>Time: <span id="won-time">0:00</span></p>
+        <p style="margin-top: 20px; font-size: 18px" class="restart-text">
+          Press R or tap here to restart
+        </p>
+      </div>
+    </div>
   </div>
 
   <div id="game-over">
-    <h1>MISSION FAILED!</h1>
-    <p>Time: <span id="final-time">0:00</span></p>
-    <p style="margin-top: 20px; font-size: 18px" class="restart-text">
-      Press R or tap here to restart
-    </p>
+    <div class="modal-content">
+      <img src={maduroDesperationSmokingImg.src} alt="Maduro Desperate Smoking" id="lose-sprite" />
+      <div class="modal-text">
+        <h1>MISSION FAILED!</h1>
+        <p>Time: <span id="final-time">0:00</span></p>
+        <p style="margin-top: 20px; font-size: 18px" class="restart-text">
+          Press R or tap here to restart
+        </p>
+      </div>
+    </div>
   </div>
 
   <div id="touch-controls">
@@ -106,9 +118,19 @@
     padding: 40px;
     border: 5px solid #00ff00;
     border-radius: 10px;
-    text-align: center;
     display: none;
     z-index: 20;
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .modal-text {
+    text-align: center;
   }
 
   #game-won h1 {
@@ -123,6 +145,12 @@
     margin: 10px 0;
   }
 
+  #won-sprite {
+    width: 200px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
   #game-over {
     position: absolute;
     top: 50%;
@@ -133,7 +161,6 @@
     padding: 40px;
     border: 5px solid #ff0000;
     border-radius: 10px;
-    text-align: center;
     display: none;
     z-index: 20;
   }
@@ -148,6 +175,12 @@
     font-size: 24px;
     color: #fff;
     margin: 10px 0;
+  }
+
+  #lose-sprite {
+    width: 200px;
+    height: auto;
+    flex-shrink: 0;
   }
 
   #touch-controls {
