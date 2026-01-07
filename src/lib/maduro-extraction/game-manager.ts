@@ -337,8 +337,10 @@ export class GameManager {
     const halfScreen = this.game.canvas.height / 2;
 
     // Switch to desperate when helicopter is within half screen distance
-    if (distance < halfScreen && !maduro.isDesperate) {
+    if (distance < halfScreen) {
       maduro.isDesperate = true;
+    } else {
+      maduro.isDesperate = false;
     }
   }
 
