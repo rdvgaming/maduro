@@ -69,88 +69,47 @@ import jdVinceTrumpHelicopterImg from '../../lib/assets/jd-vince-trump-helicopte
 		border-color: var(--sl-color-gray-2);
 		background: var(--sl-color-gray-6);
 	}
-	.game-cards {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 2rem;
-		margin: 2rem 0;
-	}
-	.game-card {
-		background: var(--sl-color-bg-nav);
-		border: 1px solid var(--sl-color-gray-5);
-		border-radius: 0.75rem;
-		padding: 1.5rem;
-		transition: all 0.3s;
-		display: flex;
-		flex-direction: column;
-	}
-	.game-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-		border-color: var(--sl-color-accent);
-	}
 	.game-icon {
-		width: 80px;
-		height: 80px;
+		width: 100px;
+		height: 100px;
 		object-fit: contain;
-		margin: 0 auto 1rem;
-	}
-	.game-card h3 {
-		margin: 0 0 0.75rem;
-		font-size: 1.5rem;
-		text-align: center;
-	}
-	.game-card p {
-		flex: 1;
-		margin: 0 0 1rem;
-		color: var(--sl-color-gray-2);
-		line-height: 1.6;
-	}
-	.play-link {
-		display: inline-block;
-		padding: 0.5rem 1rem;
-		background: var(--sl-color-accent);
-		color: white;
-		text-decoration: none;
-		border-radius: 0.375rem;
-		text-align: center;
-		font-weight: 600;
-		transition: all 0.2s;
-	}
-	.play-link:hover {
-		background: var(--sl-color-accent-high);
-		transform: translateY(-2px);
+		float: left;
+		margin: 0 1rem 1rem 0;
 	}
 `}</style>
 
 ## Available Games
 
-<div class="game-cards">
-	<div class="game-card">
+<CardGrid stagger>
+	<Card title="Maduro Survivors" icon="rocket">
 		<img src={trumpImg.src} alt="Trump" class="game-icon" />
-		<h3>Maduro Survivors</h3>
-		<p>A survivor-style game featuring various characters and enemies. Battle waves of enemies, collect upgrades, and see how long you can survive!</p>
-		<a href={withBase('/games/maduro-survivors/')} class="play-link">Play Now →</a>
-	</div>
-	<div class="game-card">
+		
+		A survivor-style game featuring various characters and enemies. Battle waves of enemies, collect upgrades, and see how long you can survive!
+		
+		<a href={withBase('/games/maduro-survivors/')}>Play Now →</a>
+	</Card>
+	<Card title="Maduro Invaders" icon="rocket">
 		<img src={maduroRocketImg.src} alt="Maduro Rocket" class="game-icon" />
-		<h3>Maduro Invaders</h3>
-		<p>A Space Invaders-style arcade game. Control Maduro in his rocket, auto-shooting missiles at waves of descending enemies. The fewer enemies remain, the faster they move!</p>
-		<a href={withBase('/games/maduro-invaders/')} class="play-link">Play Now →</a>
-	</div>
-	<div class="game-card">
+		
+		A Space Invaders-style arcade game. Control Maduro in his rocket, auto-shooting missiles at waves of descending enemies. The fewer enemies remain, the faster they move!
+		
+		<a href={withBase('/games/maduro-invaders/')}>Play Now →</a>
+	</Card>
+	<Card title="Maduro Escape" icon="rocket">
 		<img src={maduroBoatImg.src} alt="Maduro Boat" class="game-icon" />
-		<h3>Maduro Escape</h3>
-		<p>A side-scrolling escape game. Help Maduro escape on his motorboat, dropping oil barrels to destroy pursuing marine boats. Collect 20 containers to win!</p>
-		<a href={withBase('/games/maduro-escape/')} class="play-link">Play Now →</a>
-	</div>
-	<div class="game-card">
+		
+		A side-scrolling escape game. Help Maduro escape on his motorboat, dropping oil barrels to destroy pursuing marine boats. Collect 20 containers to win!
+		
+		<a href={withBase('/games/maduro-escape/')}>Play Now →</a>
+	</Card>
+	<Card title="Maduro Extraction" icon="rocket">
 		<img src={jdVinceTrumpHelicopterImg.src} alt="JD Vance Trump Helicopter" class="game-icon" />
-		<h3>Maduro Extraction</h3>
-		<p>A helicopter landing rescue mission. Navigate through missile fire with realistic gravity physics. Land safely near Maduro to rescue him without crashing!</p>
-		<a href={withBase('/games/maduro-extraction/')} class="play-link">Play Now →</a>
-	</div>
-</div>
+		
+		A helicopter landing rescue mission. Navigate through missile fire with realistic gravity physics. Land safely near Maduro to rescue him without crashing!
+		
+		<a href={withBase('/games/maduro-extraction/')}>Play Now →</a>
+	</Card>
+</CardGrid>
 
 ## About
 
