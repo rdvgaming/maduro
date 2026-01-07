@@ -15,11 +15,11 @@ import jdVanceHelicopterImgModule from "../assets/jd-vance-helicopter.png";
 export class Helicopter implements GameObject {
   position: Vector2;
   velocity: Vector2;
-  width: number = 120;
-  height: number = 80;
+  width: number = 204;
+  height: number = 136;
   static sprite: HTMLImageElement | null = null;
   gravity: number = 150; // Pixels per second squared
-  thrust: number = -250; // Upward thrust when pressing up
+  thrust: number = -175; // Upward thrust when pressing up
   horizontalSpeed: number = 120; // Horizontal movement speed
   maxFallSpeed: number = 300; // Max safe landing speed
   crashSpeed: number = 400; // Speed that causes crash
