@@ -17,6 +17,11 @@ export class GameManager {
     this.game = new Game(canvas);
 
     this.setupCanvas();
+
+    // Re-center player after canvas is properly sized
+    this.game.player.position.x = canvas.width / 2;
+    this.game.player.position.y = canvas.height / 2;
+
     this.setupControls();
     this.setupTouchControls();
     this.startGameLoop();
