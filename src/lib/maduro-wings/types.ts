@@ -824,6 +824,45 @@ export class Particle {
   }
 }
 
+export class WaterRipple {
+  x: number;
+  y: number;
+  life: number;
+  maxLife: number;
+  maxRadius: number;
+
+  constructor(x: number, y: number, maxRadius: number = 150) {
+    this.x = x;
+    this.y = y;
+    this.life = 1.5; // 1.5 seconds
+    this.maxLife = 1.5;
+    this.maxRadius = maxRadius;
+  }
+
+  update(deltaTime: number) {
+    this.life -= deltaTime;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    const progress = 1 - this.life / this.maxLife;
+    const numRings = 3;
+
+    for (let i = 0; i < numRings; i++) {
+      const ringProgress = progress - i * 0.15;
+      if (ringProgress <= 0 || ringProgress >= 1) continue;
+
+      const radius = this.maxRadius * ringProgress;
+      const alpha = (1 - ringProgress) * 0.4; // Fade out as it expands
+
+      ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+}
+
 export class Game {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
@@ -833,6 +872,7 @@ export class Game {
   bullets: Bullet[] = [];
   powerups: Powerup[] = [];
   particles: Particle[] = [];
+  waterRipples: WaterRipple[] = [];
   keys: Set<string> = new Set();
 
   // Game state
@@ -899,6 +939,9 @@ export class Game {
         new Particle(x, y, vx, vy, 0.5 + Math.random() * 0.5, color, size),
       );
     }
+
+    // Create water ripple effect
+    this.waterRipples.push(new WaterRipple(x, y, 150));
   }
 
   spawnEnemy() {

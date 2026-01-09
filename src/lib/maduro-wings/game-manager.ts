@@ -5,6 +5,7 @@ import {
   Bullet,
   Powerup,
   Particle,
+  WaterRipple,
   WeaponType,
 } from "./types";
 
@@ -282,6 +283,7 @@ export class GameManager {
     this.updateBullets(deltaTime);
     this.updatePowerups(deltaTime);
     this.updateParticles(deltaTime);
+    this.updateWaterRipples(deltaTime);
 
     // Handle collisions
     this.handleCollisions();
@@ -427,6 +429,17 @@ export class GameManager {
 
       if (particle.life <= 0) {
         this.game.particles.splice(i, 1);
+      }
+    }
+  }
+
+  updateWaterRipples(deltaTime: number): void {
+    for (let i = this.game.waterRipples.length - 1; i >= 0; i--) {
+      const ripple = this.game.waterRipples[i];
+      ripple.update(deltaTime);
+
+      if (ripple.life <= 0) {
+        this.game.waterRipples.splice(i, 1);
       }
     }
   }
@@ -684,6 +697,11 @@ export class GameManager {
       if (island.isDestroyed) {
         island.draw(ctx);
       }
+    }
+
+    // Draw water ripples (behind particles)
+    for (const ripple of this.game.waterRipples) {
+      ripple.draw(ctx);
     }
 
     // Draw particles (on top of destroyed islands)
