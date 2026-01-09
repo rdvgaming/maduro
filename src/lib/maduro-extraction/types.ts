@@ -141,7 +141,7 @@ export class Maduro implements GameObject {
   }
 }
 
-import rocketImgModule from "../assets/rocket.png";
+import rocketImgModule from "../assets/bullet-rocket.png";
 
 export class Missile implements GameObject {
   position: Vector2;

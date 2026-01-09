@@ -146,7 +146,7 @@ export class Enemy implements GameObject {
   }
 }
 
-import rocketImgModule from "../assets/rocket.png";
+import rocketImgModule from "../assets/bullet-rocket.png";
 
 export class Projectile {
   x: number;
