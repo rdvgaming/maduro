@@ -33,6 +33,7 @@ export enum WeaponType {
   HOMING = "HOMING",
   SAW = "SAW",
   WAVE = "WAVE",
+  ORBIT = "ORBIT",
 }
 
 export interface Weapon {
@@ -58,6 +59,8 @@ export class Player {
   specialDuration: number = 0;
   specialMaxDuration: number = 1.5; // 1.5 seconds
   specialRadius: number = 200; // Bubble radius
+  orbitingSaws: number = 0; // Number of orbiting saws
+  orbitAngle: number = 0; // Current rotation angle for orbits
   static sprite: HTMLImageElement | null = null;
 
   constructor(x: number, y: number) {
@@ -97,6 +100,15 @@ export class Player {
         this.specialDuration = 0;
       }
     }
+
+    // Update orbiting saws angle
+    if (this.orbitingSaws > 0) {
+      this.orbitAngle += deltaTime * 3; // Rotate speed (50% faster: 2 * 1.5 = 3)
+    }
+  }
+
+  addOrbitingSaw() {
+    this.orbitingSaws++;
   }
 
   activateSpecial() {
@@ -115,6 +127,32 @@ export class Player {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    // Draw orbiting saws
+    if (this.orbitingSaws > 0) {
+      const orbitRadius = this.specialRadius * 0.8; // Slightly smaller than special radius
+      const sawSprite = Bullet.sprites.get("saw");
+
+      for (let i = 0; i < this.orbitingSaws; i++) {
+        const angle = this.orbitAngle + (i * Math.PI * 2) / this.orbitingSaws;
+        const sawX = this.x + Math.cos(angle) * orbitRadius;
+        const sawY = this.y + Math.sin(angle) * orbitRadius;
+
+        if (sawSprite && sawSprite.complete) {
+          const size = 50;
+          ctx.save();
+          ctx.translate(sawX, sawY);
+          ctx.rotate(this.orbitAngle * 5); // Spin the saw itself
+          ctx.drawImage(sawSprite, -size / 2, -size / 2, size, size);
+          ctx.restore();
+        } else {
+          ctx.fillStyle = "#ffaa00";
+          ctx.beginPath();
+          ctx.arc(sawX, sawY, 20, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
     // Draw special attack bubble
     if (this.isUsingSpecial) {
       const progress = this.specialDuration / this.specialMaxDuration;
@@ -716,6 +754,8 @@ export class Powerup {
         return "W";
       case WeaponType.WAVE:
         return "V";
+      case WeaponType.ORBIT:
+        return "O";
       default:
         return "?";
     }
@@ -865,6 +905,7 @@ export class Game {
       WeaponType.HOMING,
       WeaponType.SAW,
       WeaponType.WAVE,
+      WeaponType.ORBIT,
       "HEALTH",
     ];
     const type = types[Math.floor(Math.random() * types.length)];

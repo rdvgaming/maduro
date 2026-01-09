@@ -432,6 +432,40 @@ export class GameManager {
   }
 
   handleCollisions(): void {
+    // Orbiting saws damage enemies and destroy bullets
+    if (this.game.player.orbitingSaws > 0) {
+      const orbitRadius = this.game.player.specialRadius * 0.8;
+      const sawDamage = 5; // Damage per frame
+      const sawCollisionRadius = 25;
+
+      for (let i = 0; i < this.game.player.orbitingSaws; i++) {
+        const angle =
+          this.game.player.orbitAngle +
+          (i * Math.PI * 2) / this.game.player.orbitingSaws;
+        const sawX = this.game.player.x + Math.cos(angle) * orbitRadius;
+        const sawY = this.game.player.y + Math.sin(angle) * orbitRadius;
+
+        // Damage enemies
+        for (const enemy of this.game.enemies) {
+          const dist = Math.hypot(enemy.x - sawX, enemy.y - sawY);
+          if (dist < enemy.radius + sawCollisionRadius) {
+            enemy.takeDamage(sawDamage);
+          }
+        }
+
+        // Destroy enemy bullets
+        for (let j = this.game.bullets.length - 1; j >= 0; j--) {
+          const bullet = this.game.bullets[j];
+          if (!bullet.isPlayerBullet) {
+            const dist = Math.hypot(bullet.x - sawX, bullet.y - sawY);
+            if (dist < sawCollisionRadius) {
+              this.game.bullets.splice(j, 1);
+            }
+          }
+        }
+      }
+    }
+
     // Special attack destroys everything nearby
     if (this.game.player.isUsingSpecial) {
       const specialRadius = this.game.player.specialRadius;
@@ -589,6 +623,8 @@ export class GameManager {
       ) {
         if (powerup.type === "HEALTH") {
           this.game.player.heal(30);
+        } else if (powerup.type === WeaponType.ORBIT) {
+          this.game.player.addOrbitingSaw();
         } else {
           this.game.player.addWeapon(powerup.type as WeaponType);
         }
