@@ -650,6 +650,19 @@ export class Island {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    // Draw stepped radial background
+    const maxRadius = this.radius * 2;
+    const steps = 4;
+    for (let i = steps; i > 0; i--) {
+      const stepRadius = (maxRadius * i) / steps;
+      const alpha = (0.15 * i) / steps; // Darker in center, fade to transparent (half opacity)
+
+      ctx.fillStyle = `rgba(25, 55, 109, ${alpha})`; // Dark blue
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, stepRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
     const sprite = this.isDestroyed
       ? Island.wreckSprite
       : Island.sprites[this.spriteIndex];
