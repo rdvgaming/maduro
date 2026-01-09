@@ -37,6 +37,17 @@
 
 <script>
   import { GameManager } from "../lib/maduro-wings/game-manager";
+  import backgroundSeaImg from "../lib/assets/background-sea.png";
+
+  // Add background image as ::after pseudo-element content
+  const style = document.createElement('style');
+  style.textContent = `
+    #gameCanvas::after {
+      background-image: url(${backgroundSeaImg.src}) !important;
+    }
+  `;
+  document.head.appendChild(style);
+
   new GameManager();
 </script>
 
@@ -116,6 +127,29 @@
     }
     100% {
       background-position: -200px 0, 0 -200px;
+    }
+  }
+
+  #gameCanvas::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    opacity: 0.3;
+    animation: bgScroll 30s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes bgScroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -2000px 0;
     }
   }
 

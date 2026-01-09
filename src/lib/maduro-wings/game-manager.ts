@@ -640,8 +640,28 @@ export class GameManager {
   draw(): void {
     const ctx = this.game.ctx;
 
-    // Clear canvas - background is now handled by CSS
-    ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
+    // Draw scrolling background
+    if (Game.backgroundImage && Game.backgroundImage.complete) {
+      const bgWidth = Game.backgroundImage.width;
+      const bgHeight = Game.backgroundImage.height;
+      const scale = this.game.canvas.height / bgHeight;
+      const scaledWidth = bgWidth * scale;
+      const offsetX = -(this.game.backgroundX % scaledWidth);
+
+      ctx.save();
+      ctx.globalAlpha = 0.3; // 30% opacity
+      ctx.scale(scale, scale);
+
+      const numRepeats = Math.ceil(this.game.canvas.width / scaledWidth) + 2;
+      for (let i = 0; i < numRepeats; i++) {
+        ctx.drawImage(Game.backgroundImage, offsetX / scale + i * bgWidth, 0);
+      }
+
+      ctx.restore();
+    } else {
+      ctx.fillStyle = "#87ceeb";
+      ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
+    }
 
     // Draw islands (destroyed ones first so particles appear on top)
     for (const island of this.game.islands) {
