@@ -52,7 +52,7 @@ export class Player {
   maxHealth: number = 100;
   speed: number = 360; // 20% faster (300 * 1.2)
   weapons: Map<WeaponType, Weapon> = new Map();
-  specialEnergy: number = 0; // Energy for special attack
+  specialEnergy: number = 100; // Start with full special attack
   maxSpecialEnergy: number = 100;
   isUsingSpecial: boolean = false;
   specialDuration: number = 0;
