@@ -47,11 +47,17 @@ export class Player {
   y: number;
   vx: number = 0;
   vy: number = 0;
-  radius: number = 48; // 20% bigger (40 * 1.2)
+  radius: number = 55; // 15% bigger than before (48 * 1.15 ≈ 55)
   health: number = 100;
   maxHealth: number = 100;
-  speed: number = 300;
+  speed: number = 360; // 20% faster (300 * 1.2)
   weapons: Map<WeaponType, Weapon> = new Map();
+  specialEnergy: number = 0; // Energy for special attack
+  maxSpecialEnergy: number = 100;
+  isUsingSpecial: boolean = false;
+  specialDuration: number = 0;
+  specialMaxDuration: number = 1.5; // 1.5 seconds
+  specialRadius: number = 200; // Bubble radius
   static sprite: HTMLImageElement | null = null;
 
   constructor(x: number, y: number) {
@@ -82,9 +88,55 @@ export class Player {
       this.radius,
       Math.min(canvasHeight - this.radius, this.y),
     );
+
+    // Update special attack duration
+    if (this.isUsingSpecial) {
+      this.specialDuration += deltaTime;
+      if (this.specialDuration >= this.specialMaxDuration) {
+        this.isUsingSpecial = false;
+        this.specialDuration = 0;
+      }
+    }
+  }
+
+  activateSpecial() {
+    if (this.specialEnergy >= this.maxSpecialEnergy && !this.isUsingSpecial) {
+      this.isUsingSpecial = true;
+      this.specialDuration = 0;
+      this.specialEnergy = 0;
+    }
+  }
+
+  addSpecialEnergy(amount: number) {
+    this.specialEnergy = Math.min(
+      this.maxSpecialEnergy,
+      this.specialEnergy + amount,
+    );
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    // Draw special attack bubble
+    if (this.isUsingSpecial) {
+      const progress = this.specialDuration / this.specialMaxDuration;
+      const currentRadius = this.specialRadius * (1 - progress * 0.3); // Shrink slightly over time
+
+      ctx.save();
+      ctx.globalAlpha = 0.6 - progress * 0.4;
+      ctx.strokeStyle = "#00ffff";
+      ctx.lineWidth = 8;
+      ctx.shadowBlur = 30;
+      ctx.shadowColor = "#00ffff";
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Inner glow
+      ctx.globalAlpha = 0.3 - progress * 0.2;
+      ctx.fillStyle = "#00ffff";
+      ctx.fill();
+      ctx.restore();
+    }
+
     if (Player.sprite && Player.sprite.complete) {
       const size = this.radius * 2;
       ctx.drawImage(

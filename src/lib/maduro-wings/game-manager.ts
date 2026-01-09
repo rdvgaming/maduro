@@ -71,7 +71,7 @@ export class GameManager {
 
       if (e.key === " " && !this.game.isGameOver && !this.game.isPaused) {
         e.preventDefault();
-        this.game.shootBullet();
+        this.game.player.activateSpecial();
       }
     });
 
@@ -160,6 +160,14 @@ export class GameManager {
         if (this.game.isGameOver) {
           this.restart();
         }
+      });
+    }
+
+    const specialButton = document.getElementById("special-button");
+    if (specialButton) {
+      specialButton.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        this.game.player.activateSpecial();
       });
     }
   }
@@ -350,6 +358,7 @@ export class GameManager {
         if (enemy.health <= 0) {
           this.game.createExplosion(enemy.x, enemy.y, 25);
           this.game.score += 100;
+          this.game.player.addSpecialEnergy(10); // Add energy on kill
         }
         this.game.enemies.splice(i, 1);
       }
@@ -423,6 +432,39 @@ export class GameManager {
   }
 
   handleCollisions(): void {
+    // Special attack destroys everything nearby
+    if (this.game.player.isUsingSpecial) {
+      const specialRadius = this.game.player.specialRadius;
+
+      // Destroy enemies
+      for (let i = this.game.enemies.length - 1; i >= 0; i--) {
+        const enemy = this.game.enemies[i];
+        const dist = Math.hypot(
+          enemy.x - this.game.player.x,
+          enemy.y - this.game.player.y,
+        );
+        if (dist < specialRadius) {
+          this.game.createExplosion(enemy.x, enemy.y, 25);
+          this.game.score += 100;
+          this.game.enemies.splice(i, 1);
+        }
+      }
+
+      // Destroy bullets
+      for (let i = this.game.bullets.length - 1; i >= 0; i--) {
+        const bullet = this.game.bullets[i];
+        if (!bullet.isPlayerBullet) {
+          const dist = Math.hypot(
+            bullet.x - this.game.player.x,
+            bullet.y - this.game.player.y,
+          );
+          if (dist < specialRadius) {
+            this.game.bullets.splice(i, 1);
+          }
+        }
+      }
+    }
+
     // Player bullets vs enemies
     for (let i = this.game.bullets.length - 1; i >= 0; i--) {
       const bullet = this.game.bullets[i];
@@ -582,6 +624,11 @@ export class GameManager {
     const healthPercent =
       (this.game.player.health / this.game.player.maxHealth) * 100;
     document.getElementById("health-bar")!.style.width = `${healthPercent}%`;
+
+    const specialPercent =
+      (this.game.player.specialEnergy / this.game.player.maxSpecialEnergy) *
+      100;
+    document.getElementById("special-bar")!.style.width = `${specialPercent}%`;
   }
 
   formatTime(seconds: number): string {
@@ -593,27 +640,8 @@ export class GameManager {
   draw(): void {
     const ctx = this.game.ctx;
 
-    // Draw scrolling background
-    if (Game.backgroundImage && Game.backgroundImage.complete) {
-      const bgWidth = Game.backgroundImage.width;
-      const bgHeight = Game.backgroundImage.height;
-      const scale = this.game.canvas.height / bgHeight;
-      const scaledWidth = bgWidth * scale;
-      const offsetX = -(this.game.backgroundX % scaledWidth);
-
-      ctx.save();
-      ctx.scale(scale, scale);
-
-      const numRepeats = Math.ceil(this.game.canvas.width / scaledWidth) + 2;
-      for (let i = 0; i < numRepeats; i++) {
-        ctx.drawImage(Game.backgroundImage, offsetX / scale + i * bgWidth, 0);
-      }
-
-      ctx.restore();
-    } else {
-      ctx.fillStyle = "#87ceeb";
-      ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height);
-    }
+    // Clear canvas - background is now handled by CSS
+    ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
 
     // Draw islands (destroyed ones first so particles appear on top)
     for (const island of this.game.islands) {

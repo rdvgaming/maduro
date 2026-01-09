@@ -12,6 +12,10 @@
     <div class="stat-bar">
       <div class="stat-fill health-fill" id="health-bar" style="width: 100%"></div>
     </div>
+    <div class="stat-bar">
+      <div class="stat-fill special-fill" id="special-bar" style="width: 0%"></div>
+    </div>
+    <div id="special-text" style="font-size: 12px; margin-top: 2px;">Press SPACE for special</div>
   </div>
 
   <div id="game-over">
@@ -27,6 +31,7 @@
     <div id="joystick-base">
       <div id="joystick-stick"></div>
     </div>
+    <button id="special-button">SPECIAL</button>
   </div>
 </div>
 
@@ -69,6 +74,49 @@
     display: block;
     max-width: 100%;
     max-height: 100vh;
+    background: linear-gradient(180deg,
+      #87CEEB 0%,
+      #87CEEB 30%,
+      #5DADE2 50%,
+      #3498DB 70%,
+      #2874A6 100%
+    );
+    position: relative;
+  }
+
+  #gameCanvas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 100px,
+        rgba(255, 255, 255, 0.03) 100px,
+        rgba(255, 255, 255, 0.03) 200px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 100px,
+        rgba(255, 255, 255, 0.02) 100px,
+        rgba(255, 255, 255, 0.02) 200px
+      );
+    animation: seaScroll 20s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes seaScroll {
+    0% {
+      background-position: 0 0, 0 0;
+    }
+    100% {
+      background-position: -200px 0, 0 -200px;
+    }
   }
 
   #ui {
@@ -108,6 +156,11 @@
 
   .health-fill {
     background: linear-gradient(90deg, #ff0000, #ff6666) !important;
+  }
+
+  .special-fill {
+    background: linear-gradient(90deg, #00ffff, #00ccff) !important;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   }
 
   #game-over {
@@ -171,6 +224,30 @@
     pointer-events: none;
   }
 
+  #special-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    background: rgba(0, 255, 255, 0.6);
+    border: 4px solid rgba(0, 255, 255, 0.9);
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000;
+    cursor: pointer;
+    touch-action: none;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    display: none;
+  }
+
+  #special-button:active {
+    transform: scale(0.95);
+    background: rgba(0, 255, 255, 0.8);
+  }
+
   @media (max-width: 768px) {
     #ui {
       font-size: 14px;
@@ -187,6 +264,14 @@
 
     #touch-controls {
       display: block;
+    }
+
+    #special-button {
+      display: block;
+    }
+
+    #special-text {
+      display: none;
     }
 
     #game-over {
